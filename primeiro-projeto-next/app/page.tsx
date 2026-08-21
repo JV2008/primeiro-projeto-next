@@ -30,12 +30,20 @@ export default function Home() {
       setMensagem({ tipo: "erro", texto: "Preencha todos os campos obrigatórios." });
       return false;
     }
+    if (!email.includes("@") || !email.includes(".")) {
+      setMensagem({ tipo: "erro", texto: "Informe um email válido." });
+      return false;
+    }
     if (mode === "cadastro" && senha !== confirmarSenha) {
       setMensagem({ tipo: "erro", texto: "As senhas não coincidem." });
       return false;
     }
     if (mode === "cadastro" && senha.length < 6) {
       setMensagem({ tipo: "erro", texto: "A senha deve ter pelo menos 6 caracteres." });
+      return false;
+    }
+    if (mode === "cadastro" && !/[!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?`~]/.test(senha)) {
+      setMensagem({ tipo: "erro", texto: "A senha deve conter pelo menos um caractere especial." });
       return false;
     }
     return true;
