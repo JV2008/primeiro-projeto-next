@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Mode = "login" | "cadastro";
 
 export default function Home() {
+  const router = useRouter();
   const [mode, setMode] = useState<Mode>("login");
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -56,10 +58,11 @@ export default function Home() {
 
     if (mode === "cadastro") {
       setMensagem({ tipo: "sucesso", texto: "Cadastro realizado com sucesso!" });
+      resetar();
     } else {
       setMensagem({ tipo: "sucesso", texto: "Login efetuado com sucesso!" });
+      setTimeout(() => router.push("/jogo"), 600);
     }
-    resetar();
   };
 
   return (
